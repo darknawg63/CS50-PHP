@@ -16,7 +16,7 @@
         $stock = lookup($_POST["symbol"]);
         if (!empty($stock))
         {
-            render("quote.php", ["symbol" => $stock["symbol"], "price" => $stock["price"], "name" => $stock["name"]]);
+            render("quote.php", ["symbol" => $stock["symbol"], "price" => number_format($stock["price"], 2), "name" => $stock["name"]]);
         }
         else
         {
