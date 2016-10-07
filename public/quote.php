@@ -20,11 +20,8 @@
         }
         else
         {
-            apologize("There was a problem looking up the symbol");
+            apologize("Symbol not found");
         }
-        //print($stock["price"]);
-        //print_r($stock);
-        //apologize("Invalid username and/or password.");
     }
 
 ?>
