@@ -14,6 +14,9 @@
     // retrieve current user's positions (stocks)
     $rows = CS50::query("SELECT id, user_id, symbol, shares FROM portfolios WHERE user_id = ?", $_SESSION["id"]);
 
+    // We would like to format in US Dollars with a Dollar sign
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
+
     $positions = [];
 
     foreach ($rows as $row)
@@ -23,17 +26,15 @@
         {
             $positions[] = [
                 "name" => $stock["name"],
-                "price" => $stock["price"],
+                "price" => money_format('%.2n', $stock["price"]),
                 "shares" => $row["shares"],
-                "symbol" => $row["symbol"]
+                "symbol" => $row["symbol"],
+                "total" => ($stock["price"] * $row["shares"])
             ];
         }
     }
-    // We would like to format in US Dollars with a Dollar sign
-    setlocale(LC_MONETARY, 'en_US.UTF-8');
 
-    // render portfolio
-    render("portfolio.php", ["title" => "Portfolio", "id" => $_SESSION["id"], 
-        "cash" => money_format('%.2n',$cash[0]["cash"])]);
+    // render user's portfolio
+    render("portfolio.php", ["title" => "Portfolio", "positions" => $positions, "cash" => money_format('%.2n', $cash[0]["cash"])]);
 
 ?>
