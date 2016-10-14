@@ -29,7 +29,7 @@
                 "price" => money_format('%.2n', $stock["price"]),
                 "shares" => $row["shares"],
                 "symbol" => $row["symbol"],
-                "total" => ($stock["price"] * $row["shares"])
+                "total" => money_format('%.2n', $stock["price"] * $row["shares"])
             ];
         }
     }

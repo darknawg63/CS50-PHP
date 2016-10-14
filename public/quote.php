@@ -13,10 +13,11 @@
     // else if user reached page via POST (as by submitting a form via POST)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $stock = lookup($_POST["symbol"]);
+        // ensure that we're only matching upper case symbols
+        $stock = lookup(strtoupper($_POST["symbol"]));
         if (!empty($stock))
         {
-            render("quote.php", ["symbol" => $stock["symbol"], "price" => number_format($stock["price"], 2), "name" => $stock["name"]]);
+            render("quote.php", ["symbol" => strtoupper($stock["symbol"]), "price" => number_format($stock["price"], 2), "name" => $stock["name"]]);
         }
         else
         {

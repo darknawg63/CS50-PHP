@@ -42,7 +42,7 @@ CREATE TABLE portfolios(
   id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT(10) UNSIGNED,
   symbol VARCHAR(10),
-  shares DECIMAL(6, 2),
+  shares DECIMAL(6),
   FOREIGN KEY(user_id) REFERENCES users(id),
   UNIQUE KEY `uk_user_id`(user_id, symbol),
   PRIMARY KEY(id)
