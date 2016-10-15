@@ -30,18 +30,17 @@
 
             // Get the client's number of assets of the stock
             $assets = CS50::query("SELECT shares FROM portfolios WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $symbol);
-            //var_dump($assets);
-            //die();
-            $investment = $price * floatval($assets[0]["shares"]);
+            $credit = $price * floatval($assets[0]["shares"]);
             
             // Update client's portfolio.
             CS50::query("DELETE FROM portfolios WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $symbol);
-            CS50::query("UPDATE users SET cash = cash - ? WHERE id = ?", $investment, $_SESSION["id"]);
-            //die();
-                // retrieve current user's positions (stocks)
+            // credit the client's balance'
+            CS50::query("UPDATE users SET cash = cash + ? WHERE id = ?", $credit, $_SESSION["id"]);
+            
+            // retrieve current user's positions (stocks)
             $rows = CS50::query("SELECT id, user_id, symbol, shares FROM portfolios WHERE user_id = ?", $_SESSION["id"]);
 
-            $cash = CS50::query("SELECT cash FROM users WHERE id=?", $_SESSION["id"]);
+            $cash = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
 
             if ($cash == 0)
             {

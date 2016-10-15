@@ -47,3 +47,13 @@ CREATE TABLE portfolios(
   UNIQUE KEY `uk_user_id`(user_id, symbol),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE `pset7`.`history` ( 
+  `id` INT(10) NOT NULL AUTO_INCREMENT , 
+  `user_id` INT(10) UNSIGNED NOT NULL , 
+  `symbol` VARCHAR(10) NOT NULL , 
+  `shares` DECIMAL(6) NOT NULL , 
+  `timestamp` DATETIME NOT NULL , 
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  PRIMARY KEY(`id`)
+) ENGINE = InnoDB;
