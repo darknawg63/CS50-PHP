@@ -47,28 +47,9 @@
             {
                 $cash[0]["cash"] = 0;
             }
-            // Okay, so this is duplicating code from index.php, but I'm sick and in the hospital now :(
-            setlocale(LC_MONETARY, 'en_US.UTF-8');
-
-            $positions = [];
-
-            foreach ($rows as $row)
-            {
-                $stock = lookup($row["symbol"]);
-                if ($stock !== false)
-                {
-                    $positions[] = [
-                        "name" => $stock["name"],
-                        "price" => money_format('%.2n', $stock["price"]),
-                        "shares" => $row["shares"],
-                        "symbol" => $row["symbol"],
-                        "total" => money_format('%.2n', $stock["price"] * $row["shares"])
-                    ];
-                }
-            }
-
-            // render user's portfolio
-            render("portfolio.php", ["title" => "Portfolio", "positions" => $positions, "cash" => money_format('%.2n', $cash[0]["cash"])]);
+            
+            // at first, I had reused the large foreach codeblock from index.php, but this is actually a much cleaner approach  
+            redirect("/");
         }
     }
 ?>
