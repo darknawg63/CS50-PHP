@@ -1,4 +1,3 @@
-<div id="middle">
 	<form action="sell.php" method="post">
 		<fieldset>
 			<div class="form-group">
@@ -18,4 +17,3 @@
 			</div>
 		</fieldset>
 	</form>
-</div>

@@ -1,4 +1,3 @@
-<div id="middle">
   <table class="table table-striped">
 
     <thead>
@@ -37,4 +36,3 @@
     </tbody>
 
   </table>
-</div>

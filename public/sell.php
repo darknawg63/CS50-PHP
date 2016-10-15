@@ -30,6 +30,8 @@
 
             // Get the client's number of assets of the stock
             $assets = CS50::query("SELECT shares FROM portfolios WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $symbol);
+            //var_dump($assets);
+            //die();
             $investment = $price * floatval($assets[0]["shares"]);
             
             // Update client's portfolio.
