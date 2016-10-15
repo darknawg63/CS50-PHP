@@ -1,4 +1,5 @@
 <?php
+    # quote.php
 
     // configuration
     require("../includes/config.php");

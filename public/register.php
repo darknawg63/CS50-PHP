@@ -1,4 +1,5 @@
 <?php
+    # register.php
 
     // configuration
     require("../includes/config.php");

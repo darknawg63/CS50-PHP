@@ -1,4 +1,5 @@
 <?php
+    # buy.php
 
     // configuration
     require("../includes/config.php");
@@ -30,7 +31,8 @@
             apologize("Shares must be in whole increments.");
 
         // calculate cost of shares
-        $cost = $_POST["shares"] * $stock["price"]; 
+        $cost = $_POST["shares"] * floatval($stock["price"]); 
+
         // check client's cash
         $cash = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
 
@@ -47,6 +49,11 @@
         
         // debit the client's balance, because there are no free lunches
         CS50::query("UPDATE users SET cash = cash - '$cost' WHERE id = ?", $_SESSION["id"]);
+        $transaction = "BUY";
+        CS50::query("INSERT INTO history (user_id, transaction, symbol, shares, price, `timestamp`)
+                    VALUES(?, ?, ?, ?, ?, NOW())", $_SESSION["id"], $transaction, $symbol, $_POST["shares"], 
+                    floatval($stock["price"]));
+        die();
         redirect("/");
     }
 

@@ -1,4 +1,5 @@
 <?php
+    # login.php
 
     // configuration
     require("../includes/config.php");

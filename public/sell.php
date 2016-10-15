@@ -1,7 +1,6 @@
 <?php
-
-    // sell.php
-    //
+    # sell.php
+    
     // configuration
     require("../includes/config.php");
 

@@ -1,19 +1,15 @@
 <?php
-    # index.php
+    # history.php
 
     // configuration
     require("../includes/config.php");
 
-    // retrieve current user's balance
-    $cash = CS50::query("SELECT cash FROM users WHERE id=?", $_SESSION["id"]);
-
-    if ($cash == 0)
-    {
-        $cash[0]["cash"] = 0;
-    }
-
     // retrieve current user's positions (stocks)
-    $rows = CS50::query("SELECT id, user_id, symbol, shares FROM portfolios WHERE user_id = ?", $_SESSION["id"]);
+    $rows = CS50::query("SELECT * FROM history WHERE user_id = ?", $_SESSION["id"]);
+        $sdate = CS50::query("SELECT `timestamp` FROM history WHERE user_id = ?", $_SESSION["id"]);
+        // convert sql string representation to unix time stamp
+        $udate = (strtotime($sdate[0]["timestamp"]));
+        $datetime = date("d-m-y H:i:s", $udate);
 
     // We would like to format in US Dollars with a Dollar sign
     setlocale(LC_MONETARY, 'en_US.UTF-8');

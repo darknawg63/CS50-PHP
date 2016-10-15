@@ -14,7 +14,7 @@ USE `pset7`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
-  `cash` DECIMAL(65,4) NULL DEFAULT '0.0000',
+  `cash` DECIMAL(11,2) NULL DEFAULT '0.0000',
   `hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
@@ -50,10 +50,13 @@ CREATE TABLE portfolios(
 
 CREATE TABLE `pset7`.`history` ( 
   `id` INT(10) NOT NULL AUTO_INCREMENT , 
-  `user_id` INT(10) UNSIGNED NOT NULL , 
+  `user_id` INT(10) UNSIGNED NOT NULL ,
+  `transaction` VARCHAR(10) NOT NULL , 
   `symbol` VARCHAR(10) NOT NULL , 
-  `shares` DECIMAL(6) NOT NULL , 
+  `shares` DECIMAL(6) NOT NULL ,
+  `price`  DECIMAL(11,2) NOT NULL, 
   `timestamp` DATETIME NOT NULL , 
   FOREIGN KEY(user_id) REFERENCES users(id),
   PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
+

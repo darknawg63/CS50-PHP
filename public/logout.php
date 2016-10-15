@@ -1,4 +1,5 @@
 <?php
+    # logout.php
 
     // configuration
     require("../includes/config.php"); 
