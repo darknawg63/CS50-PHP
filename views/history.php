@@ -12,13 +12,17 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>BUY</td>
-            <td>10/7/16, 5:03pm</td>
-            <td>MSFT</td>
-            <td>50</td>
-            <td>$57.80</td>
-        </tr>
+        <?php foreach ($transactions as $transaction): ?>
+
+            <tr>
+                <td><?= $transaction["transaction"] ?></td>
+                <td><?= $transaction["timestamp"] ?></td>
+                <td><?= $transaction["symbol"] ?></td>
+                <td><?= $transaction["shares"] ?></td>
+                <td><?= $transaction["price"] ?></td>
+            </tr>
+
+        <?php endforeach ?>
     </tbody>
     
 </table>

@@ -49,11 +49,12 @@
         
         // debit the client's balance, because there are no free lunches
         CS50::query("UPDATE users SET cash = cash - '$cost' WHERE id = ?", $_SESSION["id"]);
+        
+        // update client's history'
         $transaction = "BUY";
         CS50::query("INSERT INTO history (user_id, transaction, symbol, shares, price, `timestamp`)
                     VALUES(?, ?, ?, ?, ?, NOW())", $_SESSION["id"], $transaction, $symbol, $_POST["shares"], 
                     floatval($stock["price"]));
-        die();
         redirect("/");
     }
 
