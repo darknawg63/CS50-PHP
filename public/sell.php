@@ -51,7 +51,6 @@
             CS50::query("INSERT INTO history (user_id, transaction, symbol, shares, price, `timestamp`)
                         VALUES(?, ?, ?, ?, ?, NOW())", $_SESSION["id"], $transaction, $symbol, $assets[0]["shares"], 
                         floatval($stock["price"]));
-            die();
             // at first, I had reused the large foreach codeblock from index.php, but this is actually a much cleaner approach  
             redirect("/");
         }
