@@ -58,3 +58,7 @@
     margin: 20px;
 }
 
+tbody tr td
+{
+  text-align: left;
+}

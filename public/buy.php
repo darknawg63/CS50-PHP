@@ -14,46 +14,52 @@
     // else if user reached page via POST (as by submitting a form via POST)
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        // gather the stock's information, ensuring that we only that symbols are upper cased
-        $stock = lookup($_POST["symbol"]);
-        $symbol =  strtoupper($_POST["symbol"]);
         // handle unsuccessful cases first
-        if (empty($stock))
-        {
-            apologize("Symbol not found");
-        }
-        
-        if ($shares = $_POST["shares"] < 1)
-            apologize("You're not splurging?");
+        if (empty($_POST["symbol"]) && empty($_POST["shares"]))
+            apologize("Complete both fields.");
             
-        // check for whole increments os shares
+        if (!ctype_alpha($_POST["symbol"]))
+            apologize("Symbol must be alphabetical.");
+        
+        // either you're spending money, or get out
+        if ($_POST["shares"] <= 0)
+            apologize("Shares must be greater than zero.");
+            
+        // gather the stock's information, ensuring that symbols are upper cased
+        $id = $_SESSION["id"];
+        $shares = $_POST["shares"];
+        $symbol =  strtoupper(htmlspecialchars($_POST["symbol"]));
+        $stock = lookup($symbol);
+ 
+         // check for whole increments os shares
         if (!preg_match("/^\d+$/", $_POST["shares"]))
             apologize("Shares must be in whole increments.");
 
         // calculate cost of shares
-        $cost = $_POST["shares"] * floatval($stock["price"]); 
+        $cost = $shares * floatval($stock["price"]); 
 
         // check client's cash
-        $cash = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
+        $cash = CS50::query("SELECT cash FROM users WHERE id = ?", $id);
 
+        // not overspending
         if ($cash[0]["cash"] < $cost)
             apologize("Insufficient funds.");
 
-        #-- all checks have passed
+        # all checks have passed
         
-        // add purchased shares to client's portfolio'
+        // add purchased shares to client's portfolio
         CS50::query("INSERT INTO portfolios (user_id, symbol, shares) 
                      VALUES(?, ?, ?) ON DUPLICATE KEY 
                      UPDATE shares = shares + VALUES(shares)", 
-                     $_SESSION["id"], $symbol, $_POST["shares"]);
+                     $id, $symbol, $shares);
         
         // debit the client's balance, because there are no free lunches
-        CS50::query("UPDATE users SET cash = cash - '$cost' WHERE id = ?", $_SESSION["id"]);
+        CS50::query("UPDATE users SET cash = cash - '$cost' WHERE id = ?", $id);
         
         // update client's history'
         $transaction = "BUY";
         CS50::query("INSERT INTO history (user_id, transaction, symbol, shares, price, `timestamp`)
-                    VALUES(?, ?, ?, ?, ?, NOW())", $_SESSION["id"], $transaction, $symbol, $_POST["shares"], 
+                    VALUES(?, ?, ?, ?, ?, NOW())", $id, $transaction, $symbol, $shares, 
                     floatval($stock["price"]));
         redirect("/");
     }

@@ -12,9 +12,6 @@
 
     <tbody>
 
-      <!-- <tr><td>MSFT</td><td>Microsoft Corporation</td><td>50</td><td>$57.80</td><td>$2,890.00</td></tr> -->
-
-
         <?php foreach ($positions as $position): ?>
 
             <tr>
@@ -26,7 +23,6 @@
             </tr>
 
         <?php endforeach ?>
-
 
       <tr>
         <td colspan="4">CASH</td>
