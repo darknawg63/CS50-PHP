@@ -22,6 +22,10 @@
             
         CS50::query("UPDATE users SET cash = cash + ? WHERE id = ?", $deposit, $_SESSION["id"]);
         
-        render("deposit.php", ["title" => "Deposit"]);
-        
+        // We would like to format in US Dollars with a Dollar sign
+        setlocale(LC_MONETARY, 'en_US.UTF-8');
+
+        $new = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
+        render("deposit.php", ["title" => "Deposit", "deposit" => money_format('%.2n', $deposit),
+        "balance" => money_format('%.2n', $balance[0]["cash"]), "new" => money_format('%.2n', $new[0]["cash"])]);        
     }

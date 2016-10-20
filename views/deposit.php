@@ -11,9 +11,9 @@
 	<tbody>
 
 		<tr>
-			<td>$200.66</td>
-			<td>+ $10.44</td>
-			<td>$211.10</td>
+			<td><?= $balance ?></td>
+			<td>+ <?= $deposit ?></td>
+			<td><?= $new ?></td>
 		</tr>
 
 	</tbody>
