@@ -2,7 +2,7 @@
 
 	<thead>
 		<tr>
-			<th>Current Balance</th>
+			<th>Old Balance</th>
 			<th>Deposit</th>
 			<th>New Balance</th>
 		</tr>

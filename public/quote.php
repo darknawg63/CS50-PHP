@@ -17,15 +17,10 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         // ensure that we're only matching upper case symbols
-        $stock = lookup(strtoupper($_POST["symbol"]));
-        if (!empty($stock))
-        {
-            render("quote.php", ["symbol" => strtoupper($stock["symbol"]), "price" => money_format('%.2n', $stock["price"]), "name" => $stock["name"]]);
-        }
-        else
-        {
-            apologize("Symbol not found");
-        }
+        if (!$stock = lookup(strtoupper($_POST["symbol"])))
+            apologize("Invalid entry.");
+        
+        render("quote.php", ["symbol" => strtoupper($stock["symbol"]), "price" => money_format('%.2n', $stock["price"]), "name" => $stock["name"]]);
     }
 
 ?>
